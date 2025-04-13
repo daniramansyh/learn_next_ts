@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import type confetti from "canvas-confetti";
 
 export default function Home() {
   const messages = [
@@ -24,11 +25,10 @@ export default function Home() {
 
   const teasingMessages = [
     "Peluk virtual? Realitanya kamu butuh tidur cukup 😴",
-    "Kasih sayang AI? Segini doang yang bisa kuberi 🤖❤️",
-    "Peluk virtual sih oke... tapi peluk tagihan kapan? 💸",
+    "Kasih sayang? Segini doang yang bisa kuberi 🤖❤️",
     "Nggak apa-apa kok, manusia kuat juga kadang butuh peluk. 💔",
     "Peluk ini tidak mengandung gluten, drama, atau mantan. 🤗",
-    "Kamu baik-baik aja... kan? (AI worried noises) 🫣",
+    "Kamu baik-baik aja... kan? 🫣",
     "Jangan sedih, kamu masih punya... kode yang error 🧑‍💻🔥",
     "Ayo, peluk dulu biar semangat ngerjain bug! 🐞💥",
   ];
@@ -39,7 +39,7 @@ export default function Home() {
   const [showTease, setShowTease] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const confettiRef = useRef<any>(null);
+  const confettiRef = useRef<typeof confetti | null>(null); // ⬅️ fix disini
 
   useEffect(() => {
     audioRef.current = new Audio("/bad.mp3");
@@ -154,9 +154,7 @@ export default function Home() {
       </main>
 
       {showModal && (
-        <div
-          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-xl z-50 animate-fade-in cursor-pointer border-2 border-blue-500"
-        >
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-xl z-50 animate-fade-in cursor-pointer border-2 border-blue-500">
           <p className="text-xl font-bold text-gray-800">{currentMessage}</p>
           <div className="h-1 w-full bg-blue-100 mt-3 overflow-hidden rounded-full">
             <div className="h-full bg-blue-500 animate-[progress_1.5s_linear]" />
